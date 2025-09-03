@@ -1,8 +1,8 @@
 plugins {
     id 'java'
+    id 'application'
 }
 
-group = 'annoyer'
 version = '1.0-SNAPSHOT'
 
 repositories {
@@ -16,4 +16,8 @@ dependencies {
 
 test {
     useJUnitPlatform()
+}
+
+application {
+    mainClass.set("Main")
 }

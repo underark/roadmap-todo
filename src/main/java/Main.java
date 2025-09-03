@@ -4,6 +4,11 @@ public class Main {
         FileIOManager fileIOManager = new FileIOManager(taskManager);
         fileIOManager.readFromFile();
 
+        if (args.length < 1) {
+            System.out.println("no args");
+            return;
+        }
+
         switch (args[0]) {
             case "add":
                 if (args.length < 2) {
