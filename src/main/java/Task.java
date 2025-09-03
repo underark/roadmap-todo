@@ -31,11 +31,11 @@ public class Task {
         status = newStatus;
     }
 
-    public Date getCreatedAt() {
-        return createdAt;
+    public String getCreatedAt() {
+        return createdAt.toString();
     }
 
-    public Date getUpdatedAt() {
-        return updatedAt;
+    public String getUpdatedAt() {
+        return updatedAt.toString();
     }
 }

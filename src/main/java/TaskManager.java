@@ -10,19 +10,22 @@ public class TaskManager {
         allTasks = new HashMap<>();
     }
 
-    public void addTask(String title) {
+    public void addTask(String description) {
         int i = getNewId();
-        Task t = new Task(i, title);
+        Task t = new Task(i, description);
         allTasks.put(i, t);
     }
 
+    public boolean updateTask(int id, String description) {
+        Task oldValue = allTasks.replace(id, new Task(id, description));
+        return oldValue != null;
+    }
+
     public int getNewId() {
-        switch (allTasks.size()) {
-            case 0:
-                return 1;
-            default:
-                return Collections.max(allTasks.keySet()) + 1;
+        if (allTasks.isEmpty()) {
+            return 1;
         }
+        return Collections.max(allTasks.keySet()) + 1;
     }
 
     public ArrayList<Task> getTasks() {
