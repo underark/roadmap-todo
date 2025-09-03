@@ -18,10 +18,14 @@ public class TaskManager {
         allTasks.put(getNewId(), task);
     }
 
-//    public boolean updateTask(int id, String description) {
-//        Task oldValue = allTasks.replace(id, new Task(description,));
-//        return oldValue != null;
-//    }
+    public boolean updateTask(int id, String description) {
+        Task t = getTaskById(id);
+        String status = t.getStatus();
+        String createdAt = t.getCreatedAt();
+        String updatedAt = t.getUpdatedAt();
+        Task oldValue = allTasks.replace(id, new Task(description, status, createdAt, updatedAt));
+        return oldValue != null;
+    }
 
     public int getNewId() {
         if (allTasks.isEmpty()) {
@@ -34,5 +38,9 @@ public class TaskManager {
         ArrayList<Task> list = new ArrayList<>();
         allTasks.forEach((id, task) -> list.add(task));
         return list;
+    }
+
+    private Task getTaskById(int id) {
+        return allTasks.getOrDefault(id, new Task("", "", "", ""));
     }
 }
