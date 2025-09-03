@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class TaskManager {
     Map<Integer, Task> allTasks;
@@ -10,16 +7,21 @@ public class TaskManager {
         allTasks = new HashMap<>();
     }
 
-    public void addTask(String description) {
+    public void addNewTask(String description) {
         int i = getNewId();
-        Task t = new Task(i, description);
+        String currentDate = new Date().toString();
+        Task t = new Task(description, "todo", currentDate, currentDate);
         allTasks.put(i, t);
     }
 
-    public boolean updateTask(int id, String description) {
-        Task oldValue = allTasks.replace(id, new Task(id, description));
-        return oldValue != null;
+    public void addTaskFromExistingData(Task task) {
+        allTasks.put(getNewId(), task);
     }
+
+//    public boolean updateTask(int id, String description) {
+//        Task oldValue = allTasks.replace(id, new Task(description,));
+//        return oldValue != null;
+//    }
 
     public int getNewId() {
         if (allTasks.isEmpty()) {

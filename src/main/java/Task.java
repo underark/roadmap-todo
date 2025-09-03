@@ -1,41 +1,43 @@
-import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Task {
-    private int id;
-    private String description;
-    private String status;
-    private Date createdAt;
-    private Date updatedAt;
+    private Map<String, String> taskInfo;
 
-    public Task(int id, String description) {
-        this.id = id;
-        this.description = description;
-        status = "todo";
-        createdAt = new Date();
-        updatedAt = new Date();
-    }
+    public Task(String description, String status, String createdAt, String updatedAt) {
+        taskInfo = new HashMap<>();
+        taskInfo.put("description", description);
+        taskInfo.put("status", status);
+        taskInfo.put("createdAt", createdAt);
+        taskInfo.put("updatedAt", updatedAt);
 
-    public int getId() {
-        return id;
     }
 
     public String getDescription() {
-        return description;
+        return taskInfo.getOrDefault("description", "");
     }
 
     public String getStatus() {
-        return status;
-    }
-
-    public void changeCompletion(String newStatus) {
-        status = newStatus;
+        return taskInfo.getOrDefault("status", "");
     }
 
     public String getCreatedAt() {
-        return createdAt.toString();
+        return taskInfo.getOrDefault("createdAt", "");
     }
 
     public String getUpdatedAt() {
-        return updatedAt.toString();
+        return taskInfo.getOrDefault("updatedAt", "");
+    }
+
+    public void changeCompletion(String newStatus) {
+        taskInfo.replace("status", newStatus);
+    }
+
+    public void changeTaskInfo(String key, String value) {
+        taskInfo.replace(key, value);
+    }
+
+    public boolean keyPresent(String key) {
+        return taskInfo.containsKey(key);
     }
 }
