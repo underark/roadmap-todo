@@ -24,6 +24,14 @@ public class Main {
                 System.out.println("task-cli update <ID> \"description\"");
                 System.out.println("ID must be valid");
                 return;
+            case "delete":
+                if (taskManager.deleteTask(Integer.parseInt(args[1]))) {
+                    System.out.println("Task removed successfully");
+                    break;
+                }
+                System.out.println("task-cli delete <ID>");
+                System.out.println("ID must be valid");
+                return;
             default:
                 System.out.println("Unrecognized");
         }

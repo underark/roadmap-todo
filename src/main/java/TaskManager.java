@@ -27,6 +27,11 @@ public class TaskManager {
         return oldValue != null;
     }
 
+    public boolean deleteTask(int id) {
+        Task t = getTaskById(id);
+        return allTasks.remove(id, t);
+    }
+
     public int getNewId() {
         if (allTasks.isEmpty()) {
             return 1;
