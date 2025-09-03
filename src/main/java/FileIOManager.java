@@ -2,7 +2,7 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.util.ArrayList;
+import java.util.List;
 
 public class FileIOManager {
     private final JsonStringBuilder jsonStringBuilder;
@@ -40,7 +40,7 @@ public class FileIOManager {
     }
 
     public void writeToFile() {
-        ArrayList<Task> tasks = taskManager.getTasks();
+        List<Task> tasks = taskManager.getAllTasks().values().stream().toList();
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
             writer.write("[" + "\n");
             for (Task task : tasks) {

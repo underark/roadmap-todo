@@ -1,4 +1,5 @@
 [
-{"description": "sell stuff", "status": "todo", "createdAt": "Wed Sep 03 23:19:10 JST 2025", "updatedAt": "Wed Sep 03 23:19:10 JST 2025"},
-{"description": "sell stuff", "status": "todo", "createdAt": "Wed Sep 03 23:19:15 JST 2025", "updatedAt": "Wed Sep 03 23:19:15 JST 2025"}
+{"description": "buy stuff", "status": "todo", "createdAt": "Wed Sep 03 23:19:10 JST 2025", "updatedAt": "Thu Sep 04 00:09:17 JST 2025"},
+{"description": "sell stuff", "status": "in-progress", "createdAt": "Wed Sep 03 23:19:15 JST 2025", "updatedAt": "Thu Sep 04 00:06:28 JST 2025"},
+{"description": "clean house", "status": "done", "createdAt": "Thu Sep 04 00:06:09 JST 2025", "updatedAt": "Thu Sep 04 00:08:47 JST 2025"}
 ]

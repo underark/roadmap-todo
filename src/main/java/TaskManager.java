@@ -22,9 +22,18 @@ public class TaskManager {
         Task t = getTaskById(id);
         String status = t.getStatus();
         String createdAt = t.getCreatedAt();
-        String updatedAt = t.getUpdatedAt();
+        String updatedAt = new Date().toString();
         Task oldValue = allTasks.replace(id, new Task(description, status, createdAt, updatedAt));
         return oldValue != null;
+    }
+
+    public boolean updateCompletion(int id, String completion) {
+        Task t = getTaskById(id);
+        boolean result = t.changeTaskInfo("status", completion);
+        if (result) {
+            t.changeTaskInfo("updatedAt", new Date().toString());
+        }
+        return result;
     }
 
     public boolean deleteTask(int id) {
@@ -39,10 +48,32 @@ public class TaskManager {
         return Collections.max(allTasks.keySet()) + 1;
     }
 
-    public ArrayList<Task> getTasks() {
-        ArrayList<Task> list = new ArrayList<>();
-        allTasks.forEach((id, task) -> list.add(task));
-        return list;
+    public Map<Integer, Task> getAllTasks() {
+        return allTasks;
+    }
+
+    public Map<Integer, Task> getDoneTasks() {
+        Map<Integer, Task> doneTasks = new HashMap<>();
+        getAllTasks().forEach((id, task) -> {
+            if (task.getStatus().contentEquals("done")) doneTasks.put(id, task);
+        });
+        return doneTasks;
+    }
+
+    public Map<Integer, Task> getToDoTasks() {
+        Map<Integer, Task> todoTasks = new HashMap<>();
+        getAllTasks().forEach((id, task) -> {
+            if (task.getStatus().contentEquals("todo")) todoTasks.put(id, task);
+        });
+        return todoTasks;
+    }
+
+    public Map<Integer, Task> getInProgressTasks() {
+        Map<Integer, Task> inProgressTasks = new HashMap<>();
+        getAllTasks().forEach((id, task) -> {
+            if (task.getStatus().contentEquals("in-progress")) inProgressTasks.put(id, task);
+        });
+        return inProgressTasks;
     }
 
     private Task getTaskById(int id) {

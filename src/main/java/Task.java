@@ -29,12 +29,8 @@ public class Task {
         return taskInfo.getOrDefault("updatedAt", "");
     }
 
-    public void changeCompletion(String newStatus) {
-        taskInfo.replace("status", newStatus);
-    }
-
-    public void changeTaskInfo(String key, String value) {
-        taskInfo.replace(key, value);
+    public boolean changeTaskInfo(String key, String value) {
+        return taskInfo.replace(key, value) != null;
     }
 
     public boolean keyPresent(String key) {
