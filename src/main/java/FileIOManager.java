@@ -19,14 +19,16 @@ public class FileIOManager {
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             String line = reader.readLine();
             while (line != null) {
+                if (line.contentEquals("[") || line.contentEquals("]")) {
+                    line = reader.readLine();
+                    continue;
+                }
+                // Creating an 'empty' task so that the map in the task is ready to compare keys against later
                 Task t = new Task("", "", "", "");
-                line = line.replace("{", "")
-                        .replace("\"", "")
-                        .replace(":", ",");
-                String[] lineArray = line.split(", ");
-                for (int i = 0; i < lineArray.length; i++) {
-                    if (t.keyPresent(lineArray[i])) {
-                        t.changeTaskInfo(lineArray[i], lineArray[i + 1]);
+                String[] noJsonLine = jsonStringBuilder.deJsonify(line);
+                for (int i = 0; i < noJsonLine.length; i++) {
+                    if (t.keyPresent(noJsonLine[i])) {
+                        t.changeTaskInfo(noJsonLine[i], noJsonLine[i + 1]);
                     }
                 }
                 taskManager.addTaskFromExistingData(t);
@@ -40,15 +42,20 @@ public class FileIOManager {
     public void writeToFile() {
         ArrayList<Task> tasks = taskManager.getTasks();
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+            writer.write("[" + "\n");
             for (Task task : tasks) {
-                writer.write("{" +
-                        jsonStringBuilder.getStringWithComma("description", task.getDescription()) +
-                        jsonStringBuilder.getStringWithComma("status", task.getStatus()) +
-                        jsonStringBuilder.getStringWithComma("createdAt", task.getCreatedAt()) +
-                        jsonStringBuilder.getStringWithoutComma("updatedAt", task.getUpdatedAt()) +
-                        "}" + "\n"
-                );
+                // Trailing commas aren't allowed in the official json standard
+                if (tasks.indexOf(task) != tasks.size() - 1) {
+                    writer.write("{" + jsonStringBuilder.getJsonLine(task.getDescription(), task.getStatus(),
+                                    task.getCreatedAt(), task.getUpdatedAt()) + "}," + "\n"
+                    );
+                } else {
+                    writer.write("{" + jsonStringBuilder.getJsonLine(task.getDescription(), task.getStatus(),
+                                    task.getCreatedAt(), task.getUpdatedAt()) + "}" + "\n"
+                    );
+                }
             }
+            writer.write("]" + "\n");
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
