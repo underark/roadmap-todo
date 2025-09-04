@@ -7,11 +7,12 @@ public class TaskManager {
         allTasks = new HashMap<>();
     }
 
-    public void addNewTask(String description) {
+    public int addNewTask(String description) {
         int i = getNewId();
         String currentDate = new Date().toString();
         Task t = new Task(description, "todo", currentDate, currentDate);
         allTasks.put(i, t);
+        return i;
     }
 
     public void addTaskFromExistingData(Task task) {

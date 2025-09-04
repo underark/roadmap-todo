@@ -15,8 +15,8 @@ public class Main {
                     System.out.println("task-cli add \"description\"");
                     return;
                 }
-                taskManager.addNewTask(args[1]);
-                System.out.println("Task added succesfully (ID: " + (taskManager.getNewId() - 1) + ")");
+                int taskId = taskManager.addNewTask(args[1]);
+                System.out.println("Task added successfully (ID: " + taskId + ")");
                 break;
             case "list":
                 if (args[1].contentEquals("done")) {
